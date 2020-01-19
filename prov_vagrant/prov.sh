@@ -5,7 +5,7 @@ set -euo pipefail
 # debugging
 # set -x
 
-# export DEBIAN_FRONTEND='noninteractive'
+export DEBIAN_FRONTEND='noninteractive'
 
 # update to latest and remove uncessary
 apt clean && \
