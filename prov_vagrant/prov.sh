@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+# used for breakages
 set -euo pipefail
-set -x
+# debugging
+# set -x
 
 # export DEBIAN_FRONTEND='noninteractive'
 
@@ -40,7 +42,7 @@ terraform_bin="${terraform_bin_folder}/terraform"
 mkdir -p "${terraform_bin_folder}"
 
 # download zip and extract to the bin folder
-curl "${hashicorp_base_url}${terraform_url}" | bsdtar -C "${terraform_bin_folder}" -xf -
+curl -fsSL "${hashicorp_base_url}${terraform_url}" | bsdtar -C "${terraform_bin_folder}" -xf -
 
 # make executable
 chmod +x "${terraform_bin}"
@@ -66,3 +68,5 @@ ln -s "${terraform_bin}" /usr/local/bin/
     # remove sed commands and exit so env will reload with AWS info
     printf '%s\n' "sed -i 's/^sed.*//' ~/.bashrc && exit"
 } >> ~vagrant/.bashrc
+
+printf 'You are ready to ssh into the vm, you might need to reboot the machine.\n'
