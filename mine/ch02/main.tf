@@ -26,8 +26,9 @@ resource "aws_autoscaling_group" "example" {
   target_group_arns = [aws_lb_target_group.asg.arn]
   health_check_type = "ELB"
 
-  min_size = 2
-  max_size = 10
+  min_size          = 2
+  max_size          = 10
+  desired_capacity  = 3
 
   tag {
       key                   = "Name"
