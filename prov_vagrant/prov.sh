@@ -5,13 +5,13 @@ set -euo pipefail
 # debugging
 # set -x
 
-# export DEBIAN_FRONTEND='noninteractive'
+export DEBIAN_FRONTEND='noninteractive'
 
 # update to latest and remove uncessary
 apt clean && \
     apt update && \
-    apt-get -y  upgrade && \
-    apt-get -y  dist-upgrade && \
+    apt-get -y upgrade -o Dpkg::Options::='--force-confold' && \
+    apt-get -y dist-upgrade -o Dpkg::Options::='--force-confold' && \
     apt -y autoremove && \
     apt-get install -y bsdtar
 
@@ -60,7 +60,7 @@ ln -s "${terraform_bin}" /usr/local/bin/
     printf '%s\n' "read -p 'Please input your AWS access key for environment variable use:' key_id && printf 'export AWS_ACCESS_KEY_ID=\"%s\"\n' \${key_id} >> ~/.bashrc"
 
     # read in AWS secret on login
-    printf '%s\n' "read -s -p 'Please input your AWS access key for environment variable use:' access_key && printf 'export AWS_SECRET_ACCESS_KEY_ID=\"%s\"\n' \${access_key} >> ~/.bashrc"
+    printf '%s\n' "read -s -p 'Please input your AWS access key for environment variable use:' access_key && printf 'export AWS_SECRET_ACCESS_KEY=\"%s\"\n' \${access_key} >> ~/.bashrc"
 
     # removing read commands to not overwrite just given AWS info
     printf '%s\n' "sed -i 's/^read.*//' ~/.bashrc"
