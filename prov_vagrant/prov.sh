@@ -8,11 +8,11 @@ set -euo pipefail
 export DEBIAN_FRONTEND='noninteractive'
 
 # update to latest and remove uncessary
-apt clean && \
-    apt update && \
+apt-get clean && \
+    apt-get update && \
     apt-get -y upgrade -o Dpkg::Options::='--force-confold' && \
     apt-get -y dist-upgrade -o Dpkg::Options::='--force-confold' && \
-    apt -y autoremove && \
+    apt-get -y autoremove && \
     apt-get install -y bsdtar
 
 echo 'finished upgrade'
